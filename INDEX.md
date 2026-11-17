@@ -27,19 +27,6 @@ Welcome to the Squid library! Choose your starting point based on your needs:
   - Synchronization patterns
   - CMake options
 
-### 📋 Change Summary
-- **What changed from vkez?** → See [**MIGRATION_SUMMARY.md**](./MIGRATION_SUMMARY.md)
-  - Detailed list of all changes
-  - Before/after examples
-  - File modification list
-  - Statistics
-
-### ✅ Project Status
-- **Is it ready?** → Check [**COMPLETION_REPORT.md**](./COMPLETION_REPORT.md)
-  - Migration verification
-  - Quality assurance results
-  - Statistics and metrics
-
 ---
 
 ## 🎯 Choose Your Path
@@ -63,12 +50,6 @@ Welcome to the Squid library! Choose your starting point based on your needs:
 3. Update includes from `#include <vkez/...>` to `#include <squid/...>`
 4. Update namespace usage from `vkez::` to `squid::`
 
-### Path 4: I'm Migrating from vkez
-1. Read [MIGRATION_SUMMARY.md](./MIGRATION_SUMMARY.md) for exact changes
-2. Follow the before/after examples
-3. Use the file list to identify what changed in your code
-4. Update includes and namespaces accordingly
-
 ---
 
 ## 📂 File Map
@@ -78,8 +59,6 @@ Welcome to the Squid library! Choose your starting point based on your needs:
 | **[README.md](./README.md)** | Main documentation | 350+ lines | Everyone |
 | **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** | Installation & setup | 300+ lines | New users |
 | **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** | API cheat sheet | 200+ lines | Developers |
-| **[MIGRATION_SUMMARY.md](./MIGRATION_SUMMARY.md)** | Change details | 200+ lines | Upgraders |
-| **[COMPLETION_REPORT.md](./COMPLETION_REPORT.md)** | Status report | Concise | Project managers |
 | **[INDEX.md](./INDEX.md)** | This file | - | Navigation |
 
 ---

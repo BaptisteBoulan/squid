@@ -40,10 +40,8 @@ This is the simplest method for most projects.
 ```
 my-vulkan-app/
 ├── CMakeLists.txt
-├── src/
-│   └── main.cpp
-└── include/
-    └── (optional: your headers)
+└── src/
+    └── main.cpp
 ```
 
 ### Step 2: Configure CMakeLists.txt
@@ -126,7 +124,7 @@ cmake ..
 cmake --build .
 
 # Run your application
-./my_app  # or my_app.exe on Windows
+./Debug/my_app  # or ./Debug/my_app.exe on Windows
 ```
 
 ## Method 2: Using add_subdirectory
