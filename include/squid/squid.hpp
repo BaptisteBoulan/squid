@@ -11,6 +11,7 @@
 #include <squid/Pipeline/Pipeline.hpp>
 #include <squid/Pipeline/RenderPass.hpp>
 #include <squid/Pipeline/Shader.hpp>
+#include <squid/Presets.hpp>
 #include <squid/Resources/Buffer.hpp>
 #include <squid/Resources/Descriptor.hpp>
 #include <squid/Resources/Image.hpp>

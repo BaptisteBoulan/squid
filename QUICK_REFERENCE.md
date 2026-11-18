@@ -218,7 +218,81 @@ config.filter = vk::Filter::eLinear;
 config.addressMode = vk::SamplerAddressMode::eRepeat;
 ```
 
-## Lifetime Rules
+## Presets & Helpers
+
+Squid provides built-in presets to reduce boilerplate for common patterns. See [PRESETS_GUIDE.md](./PRESETS_GUIDE.md) for complete documentation.
+
+### Raster State Presets
+```cpp
+auto solid = sqd::RasterState::solid();           // Back-face culling
+auto wireframe = sqd::RasterState::wireframe();   // Edge rendering
+auto billboard = sqd::RasterState::billboard();   // No culling
+auto points = sqd::RasterState::points();         // Point cloud
+```
+
+### Blend State Presets
+```cpp
+auto opaque = sqd::BlendState::opaque();           // No blending
+auto transparent = sqd::BlendState::transparent(); // Alpha blend
+auto additive = sqd::BlendState::additive();       // Light accumulation
+auto premult = sqd::BlendState::premultiplied();   // Premultiplied alpha
+```
+
+### Depth State Presets
+```cpp
+auto depth = sqd::DepthState::enabled();    // Full depth testing
+auto readOnly = sqd::DepthState::readOnly();// No depth write
+auto none = sqd::DepthState::disabled();    // No depth testing
+```
+
+### Sampler Presets
+```cpp
+auto linear = sqd::SamplerPresets::linear();           // Linear filtering, repeat
+auto nearest = sqd::SamplerPresets::nearest();         // Nearest, repeat
+auto clamped = sqd::SamplerPresets::clampedLinear();   // Linear, clamp
+auto pixelPerfect = sqd::SamplerPresets::clampedNearest(); // Nearest, clamp
+```
+
+### Image Helpers
+```cpp
+// Create depth buffer
+auto depthConfig = sqd::createDepthImageConfig({1920, 1080, 1});
+sqd::Image depth(device, depthConfig);
+
+// Create texture with custom sampler
+auto texConfig = sqd::createTextureImageConfig(
+    {512, 512, 1},
+    sqd::SamplerPresets::clampedLinear()
+);
+sqd::Image texture(device, texConfig);
+```
+
+### Descriptor Layouts
+```cpp
+// Single texture
+auto texBindings = sqd::DescriptorPresets::textureLayout();
+sqd::DescriptorSetLayout texLayout(device, texBindings);
+
+// Single buffer
+auto bufBindings = sqd::DescriptorPresets::bufferLayout();
+sqd::DescriptorSetLayout bufLayout(device, bufBindings);
+
+// Texture + Buffer
+auto matBindings = sqd::DescriptorPresets::textureAndBufferLayout();
+sqd::DescriptorSetLayout matLayout(device, matBindings);
+```
+
+### Swapchain Presets
+```cpp
+auto vsync = sqd::SwapchainPresets::vSync();     // FIFO mode (60 FPS cap)
+auto noVSync = sqd::SwapchainPresets::noVSync(); // Mailbox mode (high perf)
+
+sqd::SwapchainConfig config{
+    .extent = {1920, 1080},
+    .preferredPresentMode = vsync.presentMode,
+};
+```
+
 
 1. ✅ Keep `Window` alive longer than other resources
 2. ✅ Keep `Instance` alive longer than `Device`, `Surface`

@@ -12,7 +12,7 @@ struct SwapchainConfig {
     vk::Extent2D extent{};
     vk::Format preferredFormat = vk::Format::eB8G8R8A8Srgb;
     vk::ColorSpaceKHR preferredColorSpace = vk::ColorSpaceKHR::eSrgbNonlinear;
-    vk::PresentModeKHR preferredPresentMode = vk::PresentModeKHR::eMailbox;
+    vk::PresentModeKHR preferredPresentMode = vk::PresentModeKHR::eFifo;
     vk::ImageUsageFlags imageUsage = vk::ImageUsageFlagBits::eColorAttachment;
 };
 

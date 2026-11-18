@@ -27,6 +27,14 @@ Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose 
   - Synchronization patterns
   - CMake options
 
+### 🎨 Reduce Boilerplate
+- **Want cleaner code?** → Read [**PRESETS_GUIDE.md**](./PRESETS_GUIDE.md)
+  - Configuration presets for common patterns
+  - Helper functions for depth/texture images
+  - Standard descriptor layouts
+  - Best practices and examples
+  - Migration guide for existing code
+
 ---
 
 ## 🎯 Choose Your Path
@@ -58,7 +66,8 @@ Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose 
 |------|---------|--------|----------|
 | **[README.md](./README.md)** | Main documentation | 350+ lines | Everyone |
 | **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** | Installation & setup | 300+ lines | New users |
-| **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** | API cheat sheet | 200+ lines | Developers |
+| **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** | API cheat sheet | 220+ lines | Developers |
+| **[PRESETS_GUIDE.md](./PRESETS_GUIDE.md)** | Configuration helpers | 220+ lines | Optimization-focused |
 | **[INDEX.md](./INDEX.md)** | This file | - | Navigation |
 
 ---
@@ -69,6 +78,14 @@ Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose 
 - [SETUP_GUIDE.md - Method 1 (FetchContent)](./SETUP_GUIDE.md#method-1-using-fetchcontent-recommended)
 - [SETUP_GUIDE.md - Method 2 (add_subdirectory)](./SETUP_GUIDE.md#method-2-using-add_subdirectory)
 - [README.md - Requirements](./README.md#requirements)
+
+### Presets & Optimization
+- **[PRESETS_GUIDE.md](./PRESETS_GUIDE.md)** - Reduce boilerplate with configuration presets
+- [Raster State Presets](./PRESETS_GUIDE.md#1-raster-state-presets)
+- [Blend State Presets](./PRESETS_GUIDE.md#2-blend-state-presets)
+- [Depth/Stencil State Presets](./PRESETS_GUIDE.md#3-depthstencil-state-presets)
+- [Image Helpers](./PRESETS_GUIDE.md#5-image-creation-helpers)
+- [Descriptor Layouts](./PRESETS_GUIDE.md#6-descriptor-layout-helpers)
 
 ### API Classes
 - **Window**: [README.md](./README.md#window) | [QUICK_REFERENCE.md](./QUICK_REFERENCE.md#core-classes)
@@ -114,6 +131,9 @@ Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose 
 **Q: How do I use class X?**
 → Check [README.md API Overview](./README.md#api-overview) or [QUICK_REFERENCE.md](./QUICK_REFERENCE.md)
 
+**Q: How can I reduce boilerplate code?**
+→ Read [PRESETS_GUIDE.md](./PRESETS_GUIDE.md) for configuration helpers and preset functions
+
 **Q: What changed from vkez?**
 → Read [MIGRATION_SUMMARY.md](./MIGRATION_SUMMARY.md)
 
@@ -136,12 +156,13 @@ Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose 
 | Aspect | Count |
 |--------|-------|
 | Public API Classes | 13 |
-| Header Files | 14 |
+| Header Files | 15 |
 | Source Files | 13 |
-| Documentation Pages | 5 |
-| Total Documentation Lines | 1000+ |
-| Code Examples | 30+ |
+| Documentation Pages | 6 |
+| Total Documentation Lines | 1200+ |
+| Code Examples | 40+ |
 | Configuration Objects | 7 |
+| Preset Functions | 20+ |
 | Core Namespaces | 1 (squid) |
 | Supported Installation Methods | 2 |
 
