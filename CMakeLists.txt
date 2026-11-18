@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(squid VERSION 0.1.0 LANGUAGES CXX)
 
 option(SQUID_BUILD_EXAMPLES "Build examples" OFF)
+option(SQUID_BUILD_TESTS "Build Squid tests" OFF)
 
 find_package(Vulkan REQUIRED)
 find_package(glfw3 3.3 CONFIG QUIET)
@@ -55,4 +56,12 @@ include(cmake/SquidShaders.cmake)
 
 if(SQUID_BUILD_EXAMPLES)
     add_subdirectory(examples/triangle)
+endif()
+
+if(SQUID_BUILD_TESTS)
+    enable_testing()
+    add_executable(squid_math_tests tests/Math.cpp)
+    target_compile_features(squid_math_tests PRIVATE cxx_std_20)
+    target_include_directories(squid_math_tests PRIVATE include)
+    add_test(NAME squid_math_tests COMMAND squid_math_tests)
 endif()

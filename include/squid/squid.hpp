@@ -7,6 +7,7 @@
 #include <squid/Core/Window.hpp>
 #include <squid/Execution/CommandPool.hpp>
 #include <squid/Execution/Sync.hpp>
+#include <squid/Math.hpp>
 #include <squid/Pipeline/Pipeline.hpp>
 #include <squid/Pipeline/RenderPass.hpp>
 #include <squid/Pipeline/Shader.hpp>

@@ -53,6 +53,27 @@ int main() {
 
 ## API Overview
 
+### Math
+
+Include `<squid/Math.hpp>` for header-only `sqd::Vec3` and `sqd::Mat4`
+without Vulkan headers or GLM. `Vec3` supports arithmetic, `dot`, `cross`,
+`length`, and `normalize`. Normalizing a vector with non-finite length or a
+length at or below the optional minimum (zero by default) throws
+`std::invalid_argument`.
+
+```cpp
+const auto view = sqd::lookAt({0, 1.5f, -3}, {0, 1, 0}, {0, 1, 0});
+const auto projection = sqd::perspectiveVulkan(0.9f, 16.0f / 9.0f, 0.1f, 100.0f);
+const sqd::Mat4 viewProjection = projection * view;
+```
+
+`Mat4` defaults to zero; use `Mat4::identity()` for the identity matrix.
+Index elements as `(row, column)` or use `data()` to upload the 16 column-major
+floats to GLSL. The camera helpers use right-handed view space, with Vulkan
+depth in `[0, 1]` and a Y flip for positive-height viewports.
+To run the math tests, configure with `-DSQUID_BUILD_TESTS=ON`, build, and run
+`ctest --test-dir build -C Debug`.
+
 ### Core Classes
 
 #### Window
