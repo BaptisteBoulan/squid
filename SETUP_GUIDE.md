@@ -213,7 +213,13 @@ imageConfig.extent = {textureWidth, textureHeight, 1};
 imageConfig.format = vk::Format::eR8G8B8A8Srgb;
 imageConfig.createSampler = true;
 sqd::Image texture(device, imageConfig);
+// rgbaPixels contains textureWidth * textureHeight tightly packed RGBA pixels.
+texture.uploadRgba8(device, commandPool, rgbaPixels.data(), rgbaPixels.size());
 ```
+
+`uploadRgba8` stages the pixels into the image and transitions it to a
+shader-readable layout. Squid does not decode image files, so decode them to
+RGBA8 in your application before uploading.
 
 ### Setting Up Pipelines
 

@@ -155,14 +155,24 @@ BufferConfig defaults to host-visible, coherent vertex-buffer memory.
 `Buffer::upload` checks bounds and memory visibility.
 
 #### Image
-Manages GPU image memory with views and samplers.
+Manages GPU image memory with views and samplers. RGBA8 pixel data can be
+uploaded through a host-visible staging buffer and transitioned for shader
+sampling.
 
 ```cpp
 sqd::ImageConfig config;
 config.extent = {1024, 1024, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
 sqd::Image image(device, config);
+std::vector<uint8_t> rgbaPixels(1024 * 1024 * 4);
+image.uploadRgba8(device, commandPool, rgbaPixels.data(), rgbaPixels.size());
 ```
+
+`uploadRgba8` accepts tightly packed RGBA8 data for 2D `R8G8B8A8` images and
+requires sampled and transfer-destination usage (included by default). Squid
+does not decode image files; load or decode them in your application first.
+The image view and sampler are available through `view()` and `sampler()`, and
+can be bound with a combined-image-sampler descriptor.
 
 Images default to device-local sampled images with a view and sampler.
 Set `ImageConfig` fields to match your image use case.

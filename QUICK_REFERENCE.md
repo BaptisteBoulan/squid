@@ -69,6 +69,7 @@ sqd::ImageConfig config;
 config.extent = {width, height, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
 sqd::Image image(device, config);
+image.uploadRgba8(device, commandPool, rgbaPixels.data(), rgbaPixels.size());
 ```
 
 ### Shader
@@ -209,7 +210,7 @@ config.extent = {width, height, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
 config.type = vk::ImageType::e2D;
 config.tiling = vk::ImageTiling::eOptimal;
-config.usage = vk::ImageUsageFlagBits::eSampled;
+config.usage = vk::ImageUsageFlagBits::eSampled | vk::ImageUsageFlagBits::eTransferDst;
 config.memoryProperties = vk::MemoryPropertyFlagBits::eDeviceLocal;
 config.aspect = vk::ImageAspectFlagBits::eColor;
 config.createSampler = true;

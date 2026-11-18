@@ -8,6 +8,7 @@
 namespace sqd {
 
 class Device;
+class Image;
 
 struct CommandPoolConfig {
     vk::CommandPoolCreateFlags flags = vk::CommandPoolCreateFlagBits::eResetCommandBuffer;
@@ -53,6 +54,7 @@ public:
     void immediateSubmit(const std::function<void(vk::CommandBuffer)>& recordFunc) const;
 
 private:
+    friend class Image;
     vk::Device m_device{};
     vk::Queue m_queue{};
     vk::CommandPool m_pool{};
