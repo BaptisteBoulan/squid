@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Buffer::Buffer(const Device& device, const BufferConfig& config)
     : m_device(device.handle()), m_size(config.size), m_memoryProperties(config.memoryProperties) {
@@ -102,4 +102,4 @@ void Buffer::upload(const void* data, size_t size, size_t offset) {
     vkUnmapMemory(static_cast<VkDevice>(m_device), static_cast<VkDeviceMemory>(m_memory));
 }
 
-} // namespace squid
+} // namespace sqd

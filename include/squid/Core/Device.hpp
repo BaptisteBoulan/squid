@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 class Instance;
 
@@ -44,4 +44,4 @@ private:
     uint32_t m_presentQueueFamily = 0;
 };
 
-} // namespace squid
+} // namespace sqd

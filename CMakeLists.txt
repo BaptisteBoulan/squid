@@ -51,6 +51,8 @@ target_include_directories(squid PUBLIC
 )
 target_link_libraries(squid PUBLIC Vulkan::Vulkan ${SQUID_GLFW_TARGET})
 
+include(cmake/SquidShaders.cmake)
+
 if(SQUID_BUILD_EXAMPLES)
     add_subdirectory(examples/triangle)
 endif()

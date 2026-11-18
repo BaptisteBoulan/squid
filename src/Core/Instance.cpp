@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Instance::Instance(const InstanceConfig& config) {
     std::vector<const char*> layers;
@@ -70,4 +70,4 @@ Instance& Instance::operator=(Instance&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

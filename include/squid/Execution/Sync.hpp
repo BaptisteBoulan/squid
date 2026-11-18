@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.hpp>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -42,4 +42,4 @@ private:
     vk::Fence m_fence{};
 };
 
-} // namespace squid
+} // namespace sqd

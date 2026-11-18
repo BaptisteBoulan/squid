@@ -5,7 +5,7 @@
 
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 DescriptorPool::DescriptorPool(const Device& device, const DescriptorPoolConfig& config)
     : m_device(device.handle()) {
@@ -100,4 +100,4 @@ DescriptorSet::DescriptorSet(const DescriptorPool& pool, const DescriptorSetLayo
     m_set = vk::DescriptorSet(set);
 }
 
-} // namespace squid
+} // namespace sqd

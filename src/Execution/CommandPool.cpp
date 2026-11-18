@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 CommandBuffer::CommandBuffer(vk::Device device, vk::CommandPool pool, vk::CommandBuffer buffer) noexcept
     : m_device(device), m_pool(pool), m_buffer(buffer) {}
@@ -106,4 +106,4 @@ void CommandPool::immediateSubmit(const std::function<void(vk::CommandBuffer)>& 
     detail::check(vkQueueWaitIdle(static_cast<VkQueue>(m_queue)), "Wait for graphics queue");
 }
 
-} // namespace squid
+} // namespace sqd

@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.hpp>
 
-namespace squid {
+namespace sqd {
 
 class Instance;
 class Window;
@@ -25,4 +25,4 @@ private:
     vk::SurfaceKHR m_surface{};
 };
 
-} // namespace squid
+} // namespace sqd

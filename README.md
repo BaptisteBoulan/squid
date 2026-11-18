@@ -1,55 +1,21 @@
-# Squid
+# Squid - Windows Vulkan Library
 
 Squid is a lightweight C++20 RAII helper library for Vulkan-Hpp and GLFW. Its
 wrappers own their Vulkan resources, are movable but not copyable, and expose
 both `handle()` and implicit conversions to the corresponding `vk::` handle.
 Use the underlying Vulkan-Hpp API whenever you need more control.
 
-## Requirements
+## Requirements (Windows)
 
-- CMake 3.20 or newer
-- A Vulkan SDK and a Vulkan-capable system
-- C++20 compiler
-- GLFW 3.3 or newer (CMake fetches GLFW when the parent project has not already
-  provided a `glfw` or `glfw3::glfw` target)
+- **Windows 10 or newer**
+- **CMake 3.20 or newer**
+- **Vulkan SDK** installed from https://www.lunarg.com/vulkan-sdk/
+- **C++20 compiler** (MSVC 2019 or newer)
+- **GLFW 3.3+** (CMake fetches automatically, or install via vcpkg)
 
 ## Installation & Setup
 
-### Option 1: Using FetchContent (Recommended)
-
-Add Squid to your CMakeLists.txt:
-
-```cmake
-include(FetchContent)
-FetchContent_Declare(
-    squid
-    GIT_REPOSITORY https://github.com/BaptisteBoulan/squid.git
-    GIT_TAG main
-)
-FetchContent_MakeAvailable(squid)
-
-target_link_libraries(YourApp PRIVATE squid::squid)
-```
-
-### Option 2: Using add_subdirectory
-
-Clone the repository into your project and add it as a subdirectory:
-
-```cmake
-add_subdirectory(squid)
-target_link_libraries(YourApp PRIVATE squid::squid)
-```
-
-### Building Examples
-
-The library includes an optional triangle example that demonstrates basic usage. 
-Enable it with:
-
-```cmake
-set(SQUID_BUILD_EXAMPLES ON)
-```
-
-The example requires `glslc` from the Vulkan SDK to compile shaders.
+**New to Squid?** Start with [**SETUP_GUIDE.md**](./SETUP_GUIDE.md) for complete step-by-step instructions.
 
 ## Quick Start
 
@@ -60,26 +26,26 @@ The example requires `glslc` from the Vulkan SDK to compile shaders.
 
 int main() {
     // Create a window
-    squid::Window window(1280, 720, "Squid Application");
+    sqd::Window window(1280, 720, "Squid Application");
     
     // Setup Vulkan instance
-    squid::InstanceConfig instanceConfig;
-    instanceConfig.extensions = squid::Window::requiredInstanceExtensions();
-    squid::Instance instance(instanceConfig);
+    sqd::InstanceConfig instanceConfig;
+    instanceConfig.extensions = sqd::Window::requiredInstanceExtensions();
+    sqd::Instance instance(instanceConfig);
     
     // Create surface from window
-    squid::Surface surface = window.createSurface(instance);
+    sqd::Surface surface = window.createSurface(instance);
     
     // Select physical device and create logical device
-    squid::Device device(instance, surface.handle());
+    sqd::Device device(instance, surface.handle());
 
     // Create swapchain
-    squid::SwapchainConfig swapchainConfig;
+    sqd::SwapchainConfig swapchainConfig;
     swapchainConfig.extent = window.framebufferSize();
-    squid::Swapchain swapchain(device, surface.handle(), swapchainConfig);
+    sqd::Swapchain swapchain(device, surface.handle(), swapchainConfig);
     
     // Create command pool for recording commands
-    squid::CommandPool commands(device);
+    sqd::CommandPool commands(device);
     
     return 0;
 }
@@ -93,7 +59,7 @@ int main() {
 Creates and manages a GLFW window for Vulkan rendering.
 
 ```cpp
-squid::Window window(1280, 720, "My App");
+sqd::Window window(1280, 720, "My App");
 bool shouldClose = window.shouldClose();
 window.pollEvents();
 vk::Extent2D size = window.framebufferSize();
@@ -103,10 +69,10 @@ vk::Extent2D size = window.framebufferSize();
 Manages the Vulkan instance with optional validation layers.
 
 ```cpp
-squid::InstanceConfig config;
-config.extensions = squid::Window::requiredInstanceExtensions();
+sqd::InstanceConfig config;
+config.extensions = sqd::Window::requiredInstanceExtensions();
 config.enableValidation = true; // Auto-disabled in Release builds
-squid::Instance instance(config);
+sqd::Instance instance(config);
 ```
 
 Validation layers are enabled by default in non-`NDEBUG` builds and disabled in
@@ -117,16 +83,16 @@ instance creation reports an error.
 Represents the rendering target (window surface).
 
 ```cpp
-squid::Surface surface = window.createSurface(instance);
+sqd::Surface surface = window.createSurface(instance);
 ```
 
 #### Device
 Selects a physical device and creates a logical device.
 
 ```cpp
-squid::DeviceConfig config;
+sqd::DeviceConfig config;
 config.extensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
-squid::Device device(instance, surface.handle(), config);
+sqd::Device device(instance, surface.handle(), config);
 ```
 
 Device selects a physical device that supports the requested extensions and
@@ -137,10 +103,10 @@ queue families, scoring discrete GPUs highest. Its default extension is
 Manages the swapchain for presenting rendered images.
 
 ```cpp
-squid::SwapchainConfig config;
+sqd::SwapchainConfig config;
 config.extent = window.framebufferSize();
 config.preferredFormat = vk::Format::eB8G8R8A8Srgb;
-squid::Swapchain swapchain(device, surface.handle(), config);
+sqd::Swapchain swapchain(device, surface.handle(), config);
 ```
 
 ### Pipeline Classes
@@ -149,27 +115,27 @@ squid::Swapchain swapchain(device, surface.handle(), config);
 Loads and manages SPIR-V shader modules.
 
 ```cpp
-squid::Shader vertexShader(device, "shader.vert.spv");
-squid::Shader fragmentShader(device, "shader.frag.spv");
+sqd::Shader vertexShader(device, "shader.vert.spv");
+sqd::Shader fragmentShader(device, "shader.frag.spv");
 ```
 
 #### RenderPass
 Defines the rendering operations and attachments.
 
 ```cpp
-squid::RenderPassConfig config;
+sqd::RenderPassConfig config;
 config.colorFormat = swapchain.format();
-squid::RenderPass renderPass(device, config);
+sqd::RenderPass renderPass(device, config);
 ```
 
 #### Pipeline
 Manages graphics or compute pipelines.
 
 ```cpp
-squid::PipelineConfig config;
+sqd::PipelineConfig config;
 config.renderPass = renderPass.handle();
 config.extent = swapchain.extent();
-squid::Pipeline pipeline(device, vertexShader, fragmentShader, config);
+sqd::Pipeline pipeline(device, vertexShader, fragmentShader, config);
 ```
 
 ### Resource Classes
@@ -178,10 +144,10 @@ squid::Pipeline pipeline(device, vertexShader, fragmentShader, config);
 Manages GPU buffer memory.
 
 ```cpp
-squid::BufferConfig config;
+sqd::BufferConfig config;
 config.size = sizeof(vertices);
 config.usage = vk::BufferUsageFlagBits::eVertexBuffer;
-squid::Buffer buffer(device, config);
+sqd::Buffer buffer(device, config);
 buffer.upload(vertices.data(), sizeof(vertices));
 ```
 
@@ -192,10 +158,10 @@ BufferConfig defaults to host-visible, coherent vertex-buffer memory.
 Manages GPU image memory with views and samplers.
 
 ```cpp
-squid::ImageConfig config;
+sqd::ImageConfig config;
 config.extent = {1024, 1024, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
-squid::Image image(device, config);
+sqd::Image image(device, config);
 ```
 
 Images default to device-local sampled images with a view and sampler.
@@ -207,14 +173,14 @@ Set `ImageConfig` fields to match your image use case.
 GPU-to-GPU synchronization primitive.
 
 ```cpp
-squid::Semaphore semaphore(device);
+sqd::Semaphore semaphore(device);
 ```
 
 #### Fence
 GPU-to-CPU synchronization primitive.
 
 ```cpp
-squid::Fence fence(device, true); // Start signaled
+sqd::Fence fence(device, true); // Start signaled
 fence.wait();
 fence.reset();
 ```
@@ -225,8 +191,8 @@ fence.reset();
 Allocates command buffers for recording Vulkan commands.
 
 ```cpp
-squid::CommandPool pool(device);
-squid::CommandBuffer buffer = pool.allocateBuffer();
+sqd::CommandPool pool(device);
+sqd::CommandBuffer buffer = pool.allocateBuffer();
 buffer.begin();
 // Record commands
 buffer.end();
@@ -332,7 +298,7 @@ and that CMake can find it (e.g., via `glfw3-config.cmake`).
 Validation is enabled by default in Debug builds. To disable it:
 
 ```cpp
-squid::InstanceConfig config;
+sqd::InstanceConfig config;
 config.enableValidation = false;
 ```
 

@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 struct InstanceConfig {
     std::string applicationName = "Squid application";
@@ -38,4 +38,4 @@ private:
     vk::Instance m_instance{};
 };
 
-} // namespace squid
+} // namespace sqd

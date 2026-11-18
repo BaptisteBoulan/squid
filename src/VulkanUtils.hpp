@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace squid::detail {
+namespace sqd::detail {
 
 inline void check(VkResult result, const char* operation) {
     if (result != VK_SUCCESS) {
@@ -14,4 +14,4 @@ inline void check(VkResult result, const char* operation) {
     }
 }
 
-} // namespace squid::detail
+} // namespace sqd::detail

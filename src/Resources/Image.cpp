@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Image::Image(const Device& device, const ImageConfig& config) : m_device(device.handle()) {
     if (!config.extent.width || !config.extent.height || !config.extent.depth) {
@@ -114,4 +114,4 @@ Image& Image::operator=(Image&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

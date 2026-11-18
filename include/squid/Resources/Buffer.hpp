@@ -4,7 +4,7 @@
 
 #include <cstddef>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -39,4 +39,4 @@ private:
     vk::MemoryPropertyFlags m_memoryProperties{};
 };
 
-} // namespace squid
+} // namespace sqd

@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 class Instance;
 class Surface;
@@ -33,4 +33,4 @@ private:
     GLFWwindow* m_window = nullptr;
 };
 
-} // namespace squid
+} // namespace sqd

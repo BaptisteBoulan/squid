@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -62,4 +62,4 @@ private:
     vk::DescriptorSet m_set{};
 };
 
-} // namespace squid
+} // namespace sqd

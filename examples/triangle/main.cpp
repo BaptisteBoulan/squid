@@ -10,7 +10,7 @@ namespace {
 
 class Framebuffers {
 public:
-    Framebuffers(vk::Device device, const squid::Swapchain& swapchain, vk::RenderPass renderPass)
+    Framebuffers(vk::Device device, const sqd::Swapchain& swapchain, vk::RenderPass renderPass)
         : m_device(device) {
         try {
             m_framebuffers.reserve(swapchain.imageViews().size());
@@ -61,28 +61,28 @@ void check(VkResult result, const char* operation) {
 }
 
 void run() {
-    squid::Window window(1280, 720, "Squid - Vulkan triangle");
-    squid::InstanceConfig instanceConfig;
+    sqd::Window window(1280, 720, "Squid - Vulkan triangle");
+    sqd::InstanceConfig instanceConfig;
     instanceConfig.applicationName = "Squid triangle";
-    instanceConfig.extensions = squid::Window::requiredInstanceExtensions();
-    squid::Instance instance(instanceConfig);
-    squid::Surface surface = window.createSurface(instance);
-    squid::Device device(instance, surface.handle());
+    instanceConfig.extensions = sqd::Window::requiredInstanceExtensions();
+    sqd::Instance instance(instanceConfig);
+    sqd::Surface surface = window.createSurface(instance);
+    sqd::Device device(instance, surface.handle());
 
-    squid::SwapchainConfig swapchainConfig;
+    sqd::SwapchainConfig swapchainConfig;
     swapchainConfig.extent = window.framebufferSize();
-    squid::Swapchain swapchain(device, surface.handle(), swapchainConfig);
-    squid::RenderPass renderPass(device, {.colorFormat = swapchain.format()});
-    squid::Shader vertexShader(device, SQUID_TRIANGLE_VERTEX_SHADER);
-    squid::Shader fragmentShader(device, SQUID_TRIANGLE_FRAGMENT_SHADER);
-    squid::PipelineConfig pipelineConfig;
+    sqd::Swapchain swapchain(device, surface.handle(), swapchainConfig);
+    sqd::RenderPass renderPass(device, {.colorFormat = swapchain.format()});
+    sqd::Shader vertexShader(device, SQUID_TRIANGLE_VERTEX_SHADER);
+    sqd::Shader fragmentShader(device, SQUID_TRIANGLE_FRAGMENT_SHADER);
+    sqd::PipelineConfig pipelineConfig;
     pipelineConfig.renderPass = renderPass.handle();
     pipelineConfig.extent = swapchain.extent();
     pipelineConfig.cullMode = vk::CullModeFlagBits::eNone;
-    squid::Pipeline pipeline(device, vertexShader, fragmentShader, pipelineConfig);
+    sqd::Pipeline pipeline(device, vertexShader, fragmentShader, pipelineConfig);
     Framebuffers framebuffers(device.handle(), swapchain, renderPass.handle());
-    squid::CommandPool commandPool(device);
-    std::vector<squid::CommandBuffer> commandBuffers;
+    sqd::CommandPool commandPool(device);
+    std::vector<sqd::CommandBuffer> commandBuffers;
     commandBuffers.reserve(swapchain.images().size());
 
     for (size_t i = 0; i < swapchain.images().size(); ++i) {
@@ -106,9 +106,9 @@ void run() {
         commandBuffer.end();
     }
 
-    squid::Semaphore imageAvailable(device);
-    squid::Semaphore renderFinished(device);
-    squid::Fence inFlight(device, true);
+    sqd::Semaphore imageAvailable(device);
+    sqd::Semaphore renderFinished(device);
+    sqd::Fence inFlight(device, true);
     while (!window.shouldClose()) {
         window.pollEvents();
         inFlight.wait();

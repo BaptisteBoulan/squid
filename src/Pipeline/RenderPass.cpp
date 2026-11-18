@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 RenderPass::RenderPass(const Device& device, const RenderPassConfig& config) : m_device(device.handle()) {
     std::vector<VkAttachmentDescription> attachments;
@@ -84,4 +84,4 @@ RenderPass& RenderPass::operator=(RenderPass&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

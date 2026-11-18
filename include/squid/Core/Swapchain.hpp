@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -43,4 +43,4 @@ private:
     vk::Extent2D m_extent{};
 };
 
-} // namespace squid
+} // namespace sqd

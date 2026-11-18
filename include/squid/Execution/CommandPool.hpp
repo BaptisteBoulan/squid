@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -58,4 +58,4 @@ private:
     vk::CommandPool m_pool{};
 };
 
-} // namespace squid
+} // namespace sqd

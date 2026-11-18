@@ -9,7 +9,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 namespace {
 struct QueueFamilies {
     uint32_t graphics = UINT32_MAX;
@@ -169,4 +169,4 @@ vk::PhysicalDeviceMemoryProperties Device::memoryProperties() const {
     return vk::PhysicalDeviceMemoryProperties(properties);
 }
 
-} // namespace squid
+} // namespace sqd

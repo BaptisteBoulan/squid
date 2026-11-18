@@ -4,7 +4,7 @@
 
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 class Shader;
@@ -52,4 +52,4 @@ private:
     vk::PipelineLayout m_layout{};
 };
 
-} // namespace squid
+} // namespace sqd

@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-namespace squid::detail {
+namespace sqd::detail {
 
 inline uint32_t findMemoryType(VkPhysicalDevice physicalDevice, uint32_t typeBits,
                                VkMemoryPropertyFlags requiredProperties) {
@@ -19,4 +19,4 @@ inline uint32_t findMemoryType(VkPhysicalDevice physicalDevice, uint32_t typeBit
     throw std::runtime_error("No Vulkan memory type satisfies the requested properties");
 }
 
-} // namespace squid::detail
+} // namespace sqd::detail

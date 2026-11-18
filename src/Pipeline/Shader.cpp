@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-namespace squid {
+namespace sqd {
 
 Shader::Shader(const Device& device, const std::filesystem::path& spirvFile) : m_device(device.handle()) {
     std::ifstream file(spirvFile, std::ios::binary | std::ios::ate);
@@ -52,4 +52,4 @@ Shader& Shader::operator=(Shader&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

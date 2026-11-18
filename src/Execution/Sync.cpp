@@ -5,7 +5,7 @@
 
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Semaphore::Semaphore(const Device& device) : m_device(device.handle()) {
     VkSemaphoreCreateInfo createInfo{VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO};
@@ -66,4 +66,4 @@ void Fence::reset() const {
     detail::check(vkResetFences(static_cast<VkDevice>(m_device), 1, &fence), "Reset fence");
 }
 
-} // namespace squid
+} // namespace sqd

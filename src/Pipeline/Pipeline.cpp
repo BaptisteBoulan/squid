@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Pipeline::Pipeline(const Device& device, const Shader& vertexShader, const Shader& fragmentShader,
                    const PipelineConfig& config)
@@ -184,4 +184,4 @@ Pipeline& Pipeline::operator=(Pipeline&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

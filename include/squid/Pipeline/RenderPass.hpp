@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.hpp>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -34,4 +34,4 @@ private:
     vk::RenderPass m_renderPass{};
 };
 
-} // namespace squid
+} // namespace sqd

@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Swapchain::Swapchain(const Device& device, vk::SurfaceKHR surface, const SwapchainConfig& config)
     : m_device(device.handle()) {
@@ -159,4 +159,4 @@ Swapchain& Swapchain::operator=(Swapchain&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd

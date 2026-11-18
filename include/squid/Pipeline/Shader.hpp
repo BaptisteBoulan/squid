@@ -4,7 +4,7 @@
 
 #include <filesystem>
 
-namespace squid {
+namespace sqd {
 
 class Device;
 
@@ -26,4 +26,4 @@ private:
     vk::ShaderModule m_module{};
 };
 
-} // namespace squid
+} // namespace sqd

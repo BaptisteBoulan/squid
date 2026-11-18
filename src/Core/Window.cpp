@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace squid {
+namespace sqd {
 namespace {
 std::mutex glfwMutex;
 unsigned int windowCount = 0;
@@ -82,4 +82,4 @@ std::vector<const char*> Window::requiredInstanceExtensions() {
     return {extensions, extensions + count};
 }
 
-} // namespace squid
+} // namespace sqd

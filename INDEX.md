@@ -1,8 +1,8 @@
-# Squid Library - Documentation Index
+# Squid Library - Documentation Index (Windows)
 
 ## 📖 Documentation Overview
 
-Welcome to the Squid library! Choose your starting point based on your needs:
+Welcome to the Squid library! This is a **Windows-only Vulkan library**. Choose your starting point based on your needs:
 
 ### 🚀 Getting Started
 - **New to Squid?** → Start with [**SETUP_GUIDE.md**](./SETUP_GUIDE.md)
@@ -48,7 +48,7 @@ Welcome to the Squid library! Choose your starting point based on your needs:
 1. Check [SETUP_GUIDE.md](./SETUP_GUIDE.md) - "Method 2: Using add_subdirectory"
 2. Update your CMakeLists.txt with the integration code
 3. Update includes from `#include <vkez/...>` to `#include <squid/...>`
-4. Update namespace usage from `vkez::` to `squid::`
+4. Update namespace usage from `vkez::` to `sqd::`
 
 ---
 
@@ -161,24 +161,25 @@ Welcome to the Squid library! Choose your starting point based on your needs:
 
 ---
 
-## 🚀 Quick Start (30 seconds)
+## 🚀 Quick Start (Windows)
 
-```bash
-# 1. Create project
+```cmd
+REM 1. Create project
 mkdir my-vulkan-app
 cd my-vulkan-app
 
-# 2. Create CMakeLists.txt with Squid
-# (Copy from SETUP_GUIDE.md)
+REM 2. Create CMakeLists.txt with Squid
+REM (Copy from SETUP_GUIDE.md)
 
-# 3. Create src/main.cpp with Squid code
-# (Copy from SETUP_GUIDE.md)
+REM 3. Create src/main.cpp with Squid code
+REM (Copy from SETUP_GUIDE.md)
 
-# 4. Build
+REM 4. Build
 mkdir build
 cd build
 cmake ..
-cmake --build .
+cmake --build . --config Debug
+.\Debug\my_app.exe
 ```
 
 See [SETUP_GUIDE.md](./SETUP_GUIDE.md) for complete instructions.

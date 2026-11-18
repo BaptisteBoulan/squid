@@ -40,49 +40,63 @@ target_link_libraries(YourApp PRIVATE squid::squid)
 ```cpp
 #include <squid/squid.hpp>
 
-squid::Window window(1280, 720, "My App");
-squid::InstanceConfig instanceConfig;
-instanceConfig.extensions = squid::Window::requiredInstanceExtensions();
-squid::Instance instance(instanceConfig);
-squid::Surface surface = window.createSurface(instance);
-squid::Device device(instance, surface.handle());
+sqd::Window window(1280, 720, "My App");
+sqd::InstanceConfig instanceConfig;
+instanceConfig.extensions = sqd::Window::requiredInstanceExtensions();
+sqd::Instance instance(instanceConfig);
+sqd::Surface surface = window.createSurface(instance);
+sqd::Device device(instance, surface.handle());
 
-squid::SwapchainConfig swapchainConfig;
+sqd::SwapchainConfig swapchainConfig;
 swapchainConfig.extent = window.framebufferSize();
-squid::Swapchain swapchain(device, surface.handle(), swapchainConfig);
+sqd::Swapchain swapchain(device, surface.handle(), swapchainConfig);
 ```
 
 ## Resource Creation
 
 ### Buffer
 ```cpp
-squid::BufferConfig config;
+sqd::BufferConfig config;
 config.size = sizeof(data);
 config.usage = vk::BufferUsageFlagBits::eVertexBuffer;
-squid::Buffer buffer(device, config);
+sqd::Buffer buffer(device, config);
 buffer.upload(data, sizeof(data));
 ```
 
 ### Image
 ```cpp
-squid::ImageConfig config;
+sqd::ImageConfig config;
 config.extent = {width, height, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
-squid::Image image(device, config);
+sqd::Image image(device, config);
 ```
 
 ### Shader
+
+After adding Squid with `FetchContent` or `add_subdirectory`, call
+`squid_compile_shader` in the same `CMakeLists.txt` that creates your app target:
+
+```cmake
+squid_compile_shader(YourApp src/shaders/vertex.glsl VERTEX_SHADER_PATH STAGE vert)
+squid_compile_shader(YourApp src/shaders/fragment.glsl FRAGMENT_SHADER_PATH STAGE frag)
+```
+
+The helper uses `glslc` from the Vulkan SDK or `PATH` to compile GLSL to SPIR-V
+when the app builds. It passes the generated file paths to C++ as string
+macros. For filenames ending in `.vert` or `.frag`, omit `STAGE` and `glslc`
+will infer it. Use distinct shader filenames within each target.
+
 ```cpp
-squid::Shader vertexShader(device, "shader.vert.spv");
-squid::Shader fragmentShader(device, "shader.frag.spv");
+sqd::Shader vertexShader(device, VERTEX_SHADER_PATH);
+sqd::Shader fragmentShader(device, FRAGMENT_SHADER_PATH);
 ```
 
 ### Pipeline
 ```cpp
-squid::PipelineConfig config;
+sqd::PipelineConfig config;
 config.renderPass = renderPass.handle();
 config.extent = swapchain.extent();
-squid::Pipeline pipeline(device, vertexShader, fragmentShader, config);
+sqd::Pipeline pipeline(device, vertexShader, fragmentShader, config);
 ```
 
 ## Rendering Loop
@@ -96,7 +110,7 @@ while (!window.shouldClose()) {
     vkAcquireNextImageKHR(...);
     
     // Record commands
-    squid::CommandBuffer cmd = commandPool.allocateBuffer();
+    sqd::CommandBuffer cmd = commandPool.allocateBuffer();
     cmd.begin();
     // ... record vkCmd* calls ...
     cmd.end();
@@ -114,19 +128,19 @@ while (!window.shouldClose()) {
 device.graphicsQueue().waitIdle();
 
 // Or use fence
-squid::Fence fence(device);
+sqd::Fence fence(device);
 fence.wait();
 fence.reset();
 
 // Or use semaphore for GPU-to-GPU sync
-squid::Semaphore semaphore(device);
+sqd::Semaphore semaphore(device);
 ```
 
 ## Error Handling
 
 ```cpp
 try {
-    squid::Instance instance(config);
+    sqd::Instance instance(config);
     // ... rest of your code ...
 } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
@@ -138,7 +152,7 @@ try {
 
 ### InstanceConfig
 ```cpp
-squid::InstanceConfig config;
+sqd::InstanceConfig config;
 config.applicationName = "My App";
 config.applicationVersion = VK_MAKE_API_VERSION(0, 1, 0, 0);
 config.apiVersion = VK_API_VERSION_1_0;
@@ -149,7 +163,7 @@ config.validationLayers = {"VK_LAYER_KHRONOS_validation"};
 
 ### DeviceConfig
 ```cpp
-squid::DeviceConfig config;
+sqd::DeviceConfig config;
 config.extensions = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 config.requiredExtensions = {...};
 config.requireGraphicsQueue = true;
@@ -158,7 +172,7 @@ config.requirePresentQueue = true;
 
 ### SwapchainConfig
 ```cpp
-squid::SwapchainConfig config;
+sqd::SwapchainConfig config;
 config.extent = {width, height};
 config.preferredFormat = vk::Format::eB8G8R8A8Srgb;
 config.preferredColorSpace = vk::ColorSpaceKHR::eSrgbNonlinear;
@@ -168,7 +182,7 @@ config.imageUsage = vk::ImageUsageFlagBits::eColorAttachment;
 
 ### PipelineConfig
 ```cpp
-squid::PipelineConfig config;
+sqd::PipelineConfig config;
 config.renderPass = renderPass.handle();
 config.extent = {width, height};
 config.topology = vk::PrimitiveTopology::eTriangleList;
@@ -181,7 +195,7 @@ config.depthWrite = false;
 
 ### BufferConfig
 ```cpp
-squid::BufferConfig config;
+sqd::BufferConfig config;
 config.size = bytes;
 config.usage = vk::BufferUsageFlagBits::eVertexBuffer;
 config.memoryProperties = vk::MemoryPropertyFlagBits::eHostVisible 
@@ -190,7 +204,7 @@ config.memoryProperties = vk::MemoryPropertyFlagBits::eHostVisible
 
 ### ImageConfig
 ```cpp
-squid::ImageConfig config;
+sqd::ImageConfig config;
 config.extent = {width, height, 1};
 config.format = vk::Format::eR8G8B8A8Srgb;
 config.type = vk::ImageType::e2D;
@@ -230,7 +244,7 @@ config.addressMode = vk::SamplerAddressMode::eRepeat;
 All Squid wrappers support implicit conversion to their Vulkan-Hpp handles:
 
 ```cpp
-squid::Device device(instance, surface.handle());
+sqd::Device device(instance, surface.handle());
 vk::Device handle = device;  // Implicit conversion
 
 // Or explicit:

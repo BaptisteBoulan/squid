@@ -6,7 +6,7 @@
 
 #include <utility>
 
-namespace squid {
+namespace sqd {
 
 Surface::Surface(const Window& window, const Instance& instance) : m_instance(instance.handle()) {
     VkSurfaceKHR surface = VK_NULL_HANDLE;
@@ -36,4 +36,4 @@ Surface& Surface::operator=(Surface&& other) noexcept {
     return *this;
 }
 
-} // namespace squid
+} // namespace sqd
